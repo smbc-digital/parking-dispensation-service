@@ -50,7 +50,6 @@ namespace parking_dispensation_service
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseMiddleware<Availability>();
             app.UseMiddleware<ApiExceptionHandling>();
             
             app.UseHealthChecks("/healthcheck", HealthCheckConfig.Options);
@@ -58,7 +57,7 @@ namespace parking_dispensation_service
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint($"{(env.IsEnvironment("local") ? string.Empty : "/")}/swagger/v1/swagger.json", "parking_dispensation_service API");
+                c.SwaggerEndpoint($"{(env.IsEnvironment("local") ? string.Empty : "parkingdispensationservice")}/swagger/v1/swagger.json", "parking_dispensation_service API");
             });
         }
     }

@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using parking_dispensation_service.Models;
+using parking_dispensation_service.Services;
 using StockportGovUK.AspNetCore.Attributes.TokenAuthentication;
-using StockportGovUK.AspNetCore.Availability.Managers;
+using System;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace parking_dispensation_service.Controllers
 {
@@ -10,11 +15,13 @@ namespace parking_dispensation_service.Controllers
     [TokenAuthentication]
     public class HomeController : ControllerBase
     {
-        private IAvailabilityManager _availabilityManager;
+        private readonly ILogger<HomeController> _logger;
+        private readonly IParkingDispensationService _parkingDispensationRequest;
         
-        public HomeController(IAvailabilityManager availabilityManager)
+        public HomeController(ILogger<HomeController> logger, IParkingDispensationService parkingDispensationRequest)
         {
-            _availabilityManager = availabilityManager;
+            _logger = logger;
+            _parkingDispensationRequest = parkingDispensationRequest;
         }
 
         [HttpGet]
@@ -24,9 +31,21 @@ namespace parking_dispensation_service.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post([FromBody] ParkingDispensationRequest parkingDispensationRequest)
         {
-            return Ok();
+            _logger.LogDebug(JsonSerializer.Serialize(parkingDispensationRequest));
+
+            try
+            {
+                var result = await _parkingDispensationRequest.CreateCase(parkingDispensationRequest);
+                _logger.LogWarning($"Case result: { result }");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Case an exception has occurred while calling CreateCase, ex: {ex}");
+                return StatusCode(500, ex);
+            }
         }
     }
 }
