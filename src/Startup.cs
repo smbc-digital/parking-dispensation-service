@@ -29,6 +29,7 @@ namespace parking_dispensation_service
             services.AddControllers();
             services.AddStorageProvider(Configuration);
             services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
+            services.RegisterServices();
             services.AddAvailability();
             services.AddSwagger();
             services.AddHealthChecks()
