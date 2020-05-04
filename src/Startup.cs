@@ -26,7 +26,8 @@ namespace parking_dispensation_service
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMvc().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddStorageProvider(Configuration);
             services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
             services.RegisterServices();
@@ -52,7 +53,7 @@ namespace parking_dispensation_service
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseMiddleware<ApiExceptionHandling>();
-            
+
             app.UseHealthChecks("/healthcheck", HealthCheckConfig.Options);
 
             app.UseSwagger();

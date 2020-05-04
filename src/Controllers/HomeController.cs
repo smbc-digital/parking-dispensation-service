@@ -4,8 +4,8 @@ using parking_dispensation_service.Models;
 using parking_dispensation_service.Services;
 using StockportGovUK.AspNetCore.Attributes.TokenAuthentication;
 using System;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace parking_dispensation_service.Controllers
 {
@@ -17,7 +17,7 @@ namespace parking_dispensation_service.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IParkingDispensationService _parkingDispensationRequest;
-        
+
         public HomeController(ILogger<HomeController> logger, IParkingDispensationService parkingDispensationRequest)
         {
             _logger = logger;
@@ -33,8 +33,6 @@ namespace parking_dispensation_service.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ParkingDispensationRequest parkingDispensationRequest)
         {
-            _logger.LogDebug(JsonSerializer.Serialize(parkingDispensationRequest));
-
             try
             {
                 var result = await _parkingDispensationRequest.CreateCase(parkingDispensationRequest);
