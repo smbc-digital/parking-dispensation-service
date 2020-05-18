@@ -24,26 +24,8 @@ namespace parking_dispensation_service.Controllers
             _parkingDispensationRequest = parkingDispensationRequest;
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ParkingDispensationRequest parkingDispensationRequest)
-        {
-            try
-            {
-                var result = await _parkingDispensationRequest.CreateCase(parkingDispensationRequest);
-                _logger.LogWarning($"Case result: { result }");
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning($"Case an exception has occurred while calling CreateCase, ex: {ex}");
-                return StatusCode(500, ex);
-            }
-        }
+            => Ok(await _parkingDispensationRequest.CreateCase(parkingDispensationRequest));
     }
 }

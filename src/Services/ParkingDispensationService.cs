@@ -47,7 +47,7 @@ namespace parking_dispensation_service.Services
                 Description = description,
                 Street = new Street
                 {
-                    Reference = parkingDispensationRequest.StreetAddress.PlaceRef
+                    Reference = parkingDispensationRequest.StreetAddress?.PlaceRef
                 }
             };
 
@@ -56,35 +56,27 @@ namespace parking_dispensation_service.Services
                 crmCase.Customer = new Customer
                 {
                     Forename = parkingDispensationRequest.FirstName,
-                    Surname = parkingDispensationRequest.LastName
+                    Surname = parkingDispensationRequest.LastName,
+                    Email = parkingDispensationRequest.Email,
+                    Mobile = parkingDispensationRequest.Phone
                 };
 
-                if (!string.IsNullOrEmpty(parkingDispensationRequest.Email))
-                {
-                    crmCase.Customer.Email = parkingDispensationRequest.Email;
-                }
-
-                if (!string.IsNullOrEmpty(parkingDispensationRequest.Phone))
-                {
-                    crmCase.Customer.Telephone = parkingDispensationRequest.Phone;
-                }
-
-                if (string.IsNullOrEmpty(parkingDispensationRequest.CustomersAddress.PlaceRef))
+                if (string.IsNullOrEmpty(parkingDispensationRequest.CustomersAddress?.PlaceRef))
                 {
                     crmCase.Customer.Address = new Address
                     {
-                        AddressLine1 = parkingDispensationRequest.CustomersAddress.AddressLine1,
-                        AddressLine2 = parkingDispensationRequest.CustomersAddress.AddressLine2,
-                        AddressLine3 = parkingDispensationRequest.CustomersAddress.Town,
-                        Postcode = parkingDispensationRequest.CustomersAddress.Postcode,
+                        AddressLine1 = parkingDispensationRequest.CustomersAddress?.AddressLine1,
+                        AddressLine2 = parkingDispensationRequest.CustomersAddress?.AddressLine2,
+                        AddressLine3 = parkingDispensationRequest.CustomersAddress?.Town,
+                        Postcode = parkingDispensationRequest.CustomersAddress?.Postcode,
                     };
                 }
                 else
                 {
                     crmCase.Customer.Address = new Address
                     {
-                        Reference = parkingDispensationRequest.CustomersAddress.PlaceRef,
-                        UPRN = parkingDispensationRequest.CustomersAddress.PlaceRef
+                        Reference = parkingDispensationRequest.CustomersAddress?.PlaceRef,
+                        UPRN = parkingDispensationRequest.CustomersAddress?.PlaceRef
                     };
                 }
             }
