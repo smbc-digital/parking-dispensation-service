@@ -4,8 +4,8 @@
 
 <div align="center">
   <img alt="Application version" src="https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=flat-square" />
-  <img alt="Open Issues" src="https://img.shields.io/github/issues/smbc-digital/civica-service?style=flat-square" />
-  <img alt="Stars" src="https://img.shields.io/github/stars/smbc-digital/civica-service?style=flat-square" />
+  <img alt="Open Issues" src="https://img.shields.io/github/issues/smbc-digital/parking-dispensation-service?style=flat-square" />
+  <img alt="Stars" src="https://img.shields.io/github/stars/smbc-digital/parking-dispensation-service?style=flat-square" />
   <img alt="Stability for application" src="https://img.shields.io/badge/stability-experimental-orange.svg?style=flat-square" />
 </div>
 
@@ -45,8 +45,8 @@
 
 ## Installation
 ```console
-$ git clone git@github.com:smbc-digital/civica-service.git
-$ cd civica-service/src
+$ git clone git@github.com:smbc-digital/parking-dispensation-service.git
+$ cd parking-dispensation-service/src
 $ git-crypt unlock
 $ dotnet run
 ```
