@@ -1,5 +1,12 @@
 <h1 align="center">Parking Dispensation Service</h1>
 
+<div align="center">
+  :car: :taxi: :blue_car:
+</div>
+<div align="center">
+  The road to success is dotted with many tempting parking spaces.
+</div>
+
 <br />
 
 <div align="center">
