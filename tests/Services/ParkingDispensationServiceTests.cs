@@ -6,6 +6,8 @@ using StockportGovUK.NetStandard.Models.Verint;
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using StockportGovUK.NetStandard.Gateways.Response;
+using Address = StockportGovUK.NetStandard.Models.Addresses.Address;
 
 namespace parking_dispensation_service_tests.Services
 {
@@ -34,7 +36,7 @@ namespace parking_dispensation_service_tests.Services
         {
             _mockVerintServiceGateway
                 .Setup(_ => _.CreateCase(It.IsAny<Case>()))
-                .ReturnsAsync(new StockportGovUK.NetStandard.Gateways.Response.HttpResponse<string>
+                .ReturnsAsync(new HttpResponse<string>
                 {
                     IsSuccessStatusCode = false
                 });
@@ -47,7 +49,7 @@ namespace parking_dispensation_service_tests.Services
         {
             _mockVerintServiceGateway
                 .Setup(_ => _.CreateCase(It.IsAny<Case>()))
-                .ReturnsAsync(new StockportGovUK.NetStandard.Gateways.Response.HttpResponse<string>
+                .ReturnsAsync(new HttpResponse<string>
                 {
                     IsSuccessStatusCode = true,
                     ResponseContent = "test"
@@ -66,14 +68,14 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway
                 .Setup(_ => _.CreateCase(It.IsAny<Case>()))
                 .Callback<Case>(_ => crmCaseParameter = _)
-                .ReturnsAsync(new StockportGovUK.NetStandard.Gateways.Response.HttpResponse<string>
+                .ReturnsAsync(new HttpResponse<string>
                 {
                     IsSuccessStatusCode = true,
                     ResponseContent = "test"
                 });
 
             var model = new ParkingDispensationRequest{
-                CustomersAddress = new StockportGovUK.NetStandard.Models.Addresses.Address
+                CustomersAddress = new Address
                 {
                     AddressLine1 = "address line 1",
                     AddressLine2 = "address line 2",
@@ -104,7 +106,7 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway
                 .Setup(_ => _.CreateCase(It.IsAny<Case>()))
                 .Callback<Case>(_ => crmCaseParameter = _)
-                .ReturnsAsync(new StockportGovUK.NetStandard.Gateways.Response.HttpResponse<string>
+                .ReturnsAsync(new HttpResponse<string>
                 {
                     IsSuccessStatusCode = true,
                     ResponseContent = "test"
@@ -123,6 +125,7 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway.Verify(_ => _.CreateCase(It.IsAny<Case>()), Times.Once);
 
             Assert.NotNull(crmCaseParameter);
+            Assert.NotNull(crmCaseParameter.Customer);
             Assert.Equal(model.Email, crmCaseParameter.Customer.Email);
             Assert.Equal(model.Phone, crmCaseParameter.Customer.Mobile);
             Assert.Equal(model.LastName, crmCaseParameter.Customer.Surname);
@@ -137,7 +140,7 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway
                 .Setup(_ => _.CreateCase(It.IsAny<Case>()))
                 .Callback<Case>(_ => crmCaseParameter = _)
-                .ReturnsAsync(new StockportGovUK.NetStandard.Gateways.Response.HttpResponse<string>
+                .ReturnsAsync(new HttpResponse<string>
                 {
                     IsSuccessStatusCode = true,
                     ResponseContent = "test"
@@ -147,7 +150,7 @@ namespace parking_dispensation_service_tests.Services
             {
                 FirstName = "first name",
                 LastName = "last name",
-                CustomersAddress = new StockportGovUK.NetStandard.Models.Addresses.Address
+                CustomersAddress = new Address
                 {
                     AddressLine1 = "address line 1",
                     AddressLine2 = "address line 2",
@@ -161,6 +164,8 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway.Verify(_ => _.CreateCase(It.IsAny<Case>()), Times.Once);
 
             Assert.NotNull(crmCaseParameter);
+            Assert.NotNull(crmCaseParameter.Customer);
+            Assert.NotNull(crmCaseParameter.Customer.Address);
             Assert.Equal(model.CustomersAddress.AddressLine1, crmCaseParameter.Customer.Address.AddressLine1);
             Assert.Equal(model.CustomersAddress.AddressLine2, crmCaseParameter.Customer.Address.AddressLine2);
             Assert.Equal(model.CustomersAddress.Town, crmCaseParameter.Customer.Address.AddressLine3);
@@ -177,7 +182,7 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway
                 .Setup(_ => _.CreateCase(It.IsAny<Case>()))
                 .Callback<Case>(_ => crmCaseParameter = _)
-                .ReturnsAsync(new StockportGovUK.NetStandard.Gateways.Response.HttpResponse<string>
+                .ReturnsAsync(new HttpResponse<string>
                 {
                     IsSuccessStatusCode = true,
                     ResponseContent = "test"
@@ -187,7 +192,7 @@ namespace parking_dispensation_service_tests.Services
             {
                 FirstName = "first name",
                 LastName = "last name",
-                CustomersAddress = new StockportGovUK.NetStandard.Models.Addresses.Address
+                CustomersAddress = new Address
                 {
                     PlaceRef = "test place ref"
                 }
@@ -198,6 +203,8 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway.Verify(_ => _.CreateCase(It.IsAny<Case>()), Times.Once);
 
             Assert.NotNull(crmCaseParameter);
+            Assert.NotNull(crmCaseParameter.Customer);
+            Assert.NotNull(crmCaseParameter.Customer.Address);
             Assert.Null(crmCaseParameter.Customer.Address.AddressLine1);
             Assert.Null(crmCaseParameter.Customer.Address.AddressLine2);
             Assert.Null(crmCaseParameter.Customer.Address.AddressLine3);
