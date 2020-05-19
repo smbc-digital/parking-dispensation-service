@@ -3,9 +3,7 @@ using Microsoft.Extensions.Logging;
 using parking_dispensation_service.Models;
 using parking_dispensation_service.Services;
 using StockportGovUK.AspNetCore.Attributes.TokenAuthentication;
-using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace parking_dispensation_service.Controllers
 {
