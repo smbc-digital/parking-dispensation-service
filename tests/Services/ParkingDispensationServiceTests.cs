@@ -61,7 +61,7 @@ namespace parking_dispensation_service_tests.Services
         }
 
         [Fact]
-        public async Task CreateCase_ShouldCallVerintGatewayWithCustomerAddressDescription()
+        public async Task CreateCase_ShouldCallVerintGatewayWithSelectedAddress()
         {
             Case crmCaseParameter = null;
 
@@ -77,11 +77,6 @@ namespace parking_dispensation_service_tests.Services
             var model = new ParkingDispensationRequest{
                 CustomersAddress = new Address
                 {
-                    AddressLine1 = "address line 1",
-                    AddressLine2 = "address line 2",
-                    Town = "town",
-                    PlaceRef = "place ref",
-                    Postcode = "post code",
                     SelectedAddress = "selected address"
                 }
             };
@@ -91,10 +86,6 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway.Verify(_ => _.CreateCase(It.IsAny<Case>()), Times.Once);
 
             Assert.NotNull(crmCaseParameter);
-            Assert.Contains($"AddressLine1: {model.CustomersAddress.AddressLine1}", crmCaseParameter.Description);
-            Assert.Contains($"AddressLine2: {model.CustomersAddress.AddressLine2}", crmCaseParameter.Description);
-            Assert.Contains($"Town: {model.CustomersAddress.Town}", crmCaseParameter.Description);
-            Assert.Contains($"Postcode: {model.CustomersAddress.Postcode}", crmCaseParameter.Description);
             Assert.Contains($"SelectedAddress: {model.CustomersAddress.SelectedAddress}", crmCaseParameter.Description);
         }
 

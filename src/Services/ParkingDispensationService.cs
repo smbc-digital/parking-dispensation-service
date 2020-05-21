@@ -32,9 +32,7 @@ namespace parking_dispensation_service.Services
 
             if (parkingDispensationRequest.CustomersAddress != null)
             {
-                description += $@"
-                                SelectedAddress: {parkingDispensationRequest.CustomersAddress.SelectedAddress}
-                                ";
+                description += $@"SelectedAddress: {parkingDispensationRequest.CustomersAddress.SelectedAddress}";
             }
 
             var crmCase = new Case
