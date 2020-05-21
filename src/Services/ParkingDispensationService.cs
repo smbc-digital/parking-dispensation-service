@@ -26,16 +26,13 @@ namespace parking_dispensation_service.Services
                                 VehicleDetails: {parkingDispensationRequest.VehicleDetails}
                                 DispensationDateStart: {parkingDispensationRequest.DispensationDateStart}
                                 DispensationDateEnd: {parkingDispensationRequest.DispensationDateEnd}
-                                DispensationTimeStart: {parkingDispensationRequest.Phone}
-                                DispensationTimeEnd: {parkingDispensationRequest.Email}
+                                DispensationTimeStart: {parkingDispensationRequest.DispensationTimeStart}
+                                DispensationTimeEnd: {parkingDispensationRequest.DispensationTimeEnd}
                                 ";
 
             if (parkingDispensationRequest.CustomersAddress != null)
             {
-                description += $@"AddressLine1: {parkingDispensationRequest.CustomersAddress.AddressLine1}
-                                AddressLine2: {parkingDispensationRequest.CustomersAddress.AddressLine2}
-                                Town: {parkingDispensationRequest.CustomersAddress.Town}
-                                Postcode: {parkingDispensationRequest.CustomersAddress.Postcode}
+                description += $@"
                                 SelectedAddress: {parkingDispensationRequest.CustomersAddress.SelectedAddress}
                                 ";
             }
