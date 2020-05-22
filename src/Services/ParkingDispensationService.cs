@@ -24,10 +24,10 @@ namespace parking_dispensation_service.Services
                                 LocationDetails: {parkingDispensationRequest.LocationDetails}
                                 PurposeOfDispensation: {parkingDispensationRequest.PurposeOfDispensation}
                                 VehicleDetails: {parkingDispensationRequest.VehicleDetails}
-                                DispensationDateStart: {parkingDispensationRequest.DispensationDateStart}
-                                DispensationDateEnd: {parkingDispensationRequest.DispensationDateEnd}
-                                DispensationTimeStart: {parkingDispensationRequest.DispensationTimeStart}
-                                DispensationTimeEnd: {parkingDispensationRequest.DispensationTimeEnd}
+                                DispensationDateStart: {parkingDispensationRequest.DispensationDateStart.Date}
+                                DispensationDateEnd: {parkingDispensationRequest.DispensationDateEnd.Date}
+                                DispensationTimeStart: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
+                                DispensationTimeEnd: {parkingDispensationRequest.DispensationTimeEnd.ToString("HH:mm")}
                                 ";
 
             if (parkingDispensationRequest.CustomersAddress != null)
