@@ -24,8 +24,8 @@ namespace parking_dispensation_service.Services
                                 LocationDetails: {parkingDispensationRequest.LocationDetails}
                                 PurposeOfDispensation: {parkingDispensationRequest.PurposeOfDispensation}
                                 VehicleDetails: {parkingDispensationRequest.VehicleDetails}
-                                DispensationDateStart: {parkingDispensationRequest.DispensationDateStart.Date}
-                                DispensationDateEnd: {parkingDispensationRequest.DispensationDateEnd.Date}
+                                DispensationDateStart: {parkingDispensationRequest.DispensationDateStart.ToString("dd/MM/yyyy")}
+                                DispensationDateEnd: {parkingDispensationRequest.DispensationDateEnd.ToString("dd/MM/yyyy")}
                                 DispensationTimeStart: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
                                 DispensationTimeEnd: {parkingDispensationRequest.DispensationTimeEnd.ToString("HH:mm")}
                                 ";
@@ -37,8 +37,8 @@ namespace parking_dispensation_service.Services
 
             var crmCase = new Case
             {
-                EventCode = 4000031,
-                EventTitle = "Basic Verint Case",
+                EventCode = 2002798,
+                EventTitle = "Request for NON enforcement",
                 Description = description,
                 Street = new Street
                 {
