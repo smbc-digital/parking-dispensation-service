@@ -17,23 +17,14 @@ namespace parking_dispensation_service.Services
         }
         public async Task<string> CreateCase(ParkingDispensationRequest parkingDispensationRequest)
         {
-            var description = $@"FirstName: {parkingDispensationRequest.FirstName}
-                                LastName: { parkingDispensationRequest.LastName}
-                                Email: {parkingDispensationRequest.Email}  
-                                Phone: {parkingDispensationRequest.Phone}
-                                LocationDetails: {parkingDispensationRequest.LocationDetails}
-                                PurposeOfDispensation: {parkingDispensationRequest.PurposeOfDispensation}
-                                VehicleDetails: {parkingDispensationRequest.VehicleDetails}
-                                DispensationDateStart: {parkingDispensationRequest.DispensationDateStart.ToString("dd/MM/yyyy")}
-                                DispensationDateEnd: {parkingDispensationRequest.DispensationDateEnd.ToString("dd/MM/yyyy")}
-                                DispensationTimeStart: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
-                                DispensationTimeEnd: {parkingDispensationRequest.DispensationTimeEnd.ToString("HH:mm")}
+            var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
+                                Start date: {parkingDispensationRequest.DispensationDateStart.ToString("dd/MM/yyyy")}
+                                End date: {parkingDispensationRequest.DispensationDateEnd.ToString("dd/MM/yyyy")}
+                                Start time: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
+                                End time: {parkingDispensationRequest.DispensationTimeEnd.ToString("HH:mm")}
+                                Vehicle information: {parkingDispensationRequest.VehicleDetails}
+                                Further location information: {parkingDispensationRequest.LocationDetails}
                                 ";
-
-            if (parkingDispensationRequest.CustomersAddress != null)
-            {
-                description += $@"SelectedAddress: {parkingDispensationRequest.CustomersAddress.SelectedAddress}";
-            }
 
             var crmCase = new Case
             {
@@ -52,9 +43,17 @@ namespace parking_dispensation_service.Services
                 {
                     Forename = parkingDispensationRequest.FirstName,
                     Surname = parkingDispensationRequest.LastName,
-                    Email = parkingDispensationRequest.Email,
-                    Mobile = parkingDispensationRequest.Phone
                 };
+
+                if (!string.IsNullOrEmpty(parkingDispensationRequest.Email))
+                {
+                    crmCase.Customer.Email = parkingDispensationRequest.Email;
+                }
+
+                if (!string.IsNullOrEmpty(parkingDispensationRequest.Phone))
+                {
+                    crmCase.Customer.Mobile = parkingDispensationRequest.Phone;
+                }
 
                 if (string.IsNullOrEmpty(parkingDispensationRequest.CustomersAddress?.PlaceRef))
                 {

@@ -86,7 +86,6 @@ namespace parking_dispensation_service_tests.Services
             _mockVerintServiceGateway.Verify(_ => _.CreateCase(It.IsAny<Case>()), Times.Once);
 
             Assert.NotNull(crmCaseParameter);
-            Assert.Contains($"SelectedAddress: {model.CustomersAddress.SelectedAddress}", crmCaseParameter.Description);
         }
 
         [Fact]
