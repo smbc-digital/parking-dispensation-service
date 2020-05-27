@@ -59,7 +59,7 @@ namespace parking_dispensation_service
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("v1/swagger.json", "Library Volunteering Enquiry Service API");
+                c.SwaggerEndpoint("v1/swagger.json", "Parking Dispensation Service API");
             });
         }
     }
