@@ -59,7 +59,7 @@ namespace parking_dispensation_service
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint($"{(env.IsEnvironment("local") ? string.Empty : "parkingdispensationservice")}/swagger/v1/swagger.json", "parking_dispensation_service API");
+                c.SwaggerEndpoint("v1/swagger.json", "Parking Dispensation Service API");
             });
         }
     }
