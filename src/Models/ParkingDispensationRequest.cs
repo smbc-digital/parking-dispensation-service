@@ -17,5 +17,6 @@ namespace parking_dispensation_service.Models
         public DateTime DispensationTimeEnd { get; set; }
         public StockportGovUK.NetStandard.Models.Addresses.Address StreetAddress { get; set; }
         public StockportGovUK.NetStandard.Models.Addresses.Address CustomersAddress { get; set; }
+        public Person Reporter { get; set; }
     }
 }
