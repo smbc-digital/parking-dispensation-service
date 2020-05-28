@@ -20,11 +20,11 @@ namespace parking_dispensation_service.Helpers
         {
             var submissionDetails = new ComplaintsMailModel
             {
-                Subject = "Parking enforcement request form - submission",
-                Reference = caseReference,
+                Subject = "Parking dispensation request form - submission",
+              //  Reference = caseReference,
                 FirstName = person.FirstName,
-                LastName = person.LastName,
-                RecipientAddress = person.Email
+              //  LastName = person.LastName,
+               // RecipientAddress = person.Email
             };
 
             _mailingServiceGateway.Send(new Mail

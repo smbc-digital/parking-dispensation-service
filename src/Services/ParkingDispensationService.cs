@@ -17,6 +17,14 @@ namespace parking_dispensation_service.Services
         private readonly IVerintServiceGateway _VerintServiceGateway;
         private readonly IMailHelper _mailHelper;
 
+        public ParkingDispensationService(IVerintServiceGateway verintServiceGateway
+                                        , IMailHelper mailHelper)
+        {
+            _VerintServiceGateway = verintServiceGateway;
+            _mailHelper = mailHelper;
+        }
+
+
         public ParkingDispensationService(IVerintServiceGateway verintServiceGateway)
         {
             _VerintServiceGateway = verintServiceGateway;
@@ -82,7 +90,6 @@ namespace parking_dispensation_service.Services
                     };
                 }
             }
-
             try
             {
                 var response = await _VerintServiceGateway.CreateCase(crmCase);
@@ -91,7 +98,6 @@ namespace parking_dispensation_service.Services
                 {
                     throw new Exception("Status code not successful");
                 }
-
                 _mailHelper.SendEmail(parkingDispensationRequest.Reporter, EMailTemplate.ParkingDispensationRequest, response.ResponseContent);
                 return response.ResponseContent;
             }
@@ -100,6 +106,7 @@ namespace parking_dispensation_service.Services
                 throw new Exception($"CRMService CreateCase an exception has occured while creating the case in verint service", ex);
             }
         }
+
     }
 }
 
