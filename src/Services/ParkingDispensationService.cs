@@ -98,7 +98,14 @@ namespace parking_dispensation_service.Services
                 {
                     throw new Exception("Status code not successful");
                 }
-                _mailHelper.SendEmail(parkingDispensationRequest.Reporter, EMailTemplate.ParkingDispensationRequest, response.ResponseContent);
+
+                Person person = new Person
+                {
+                    FirstName = parkingDispensationRequest.FirstName,   
+                    Email = parkingDispensationRequest.Email,
+                };
+
+                _mailHelper.SendEmail(person, EMailTemplate.ParkingDispensationRequest, response.ResponseContent);
                 return response.ResponseContent;
             }
             catch (Exception ex)
