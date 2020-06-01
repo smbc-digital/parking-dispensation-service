@@ -1,8 +1,13 @@
-﻿using parking_dispensation_service.Models;
-using StockportGovUK.NetStandard.Gateways.VerintServiceGateway;
-using StockportGovUK.NetStandard.Models.Verint;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using parking_dispensation_service.Helpers;
+using parking_dispensation_service.Models;
+using StockportGovUK.NetStandard.Gateways.VerintServiceGateway;
+using StockportGovUK.NetStandard.Models.Enums;
+using StockportGovUK.NetStandard.Models.Verint;
 
 namespace parking_dispensation_service.Services
 {
@@ -10,6 +15,15 @@ namespace parking_dispensation_service.Services
     {
 
         private readonly IVerintServiceGateway _VerintServiceGateway;
+        private readonly IMailHelper _mailHelper;
+
+        public ParkingDispensationService(IVerintServiceGateway verintServiceGateway
+                                        , IMailHelper mailHelper)
+        {
+            _VerintServiceGateway = verintServiceGateway;
+            _mailHelper = mailHelper;
+        }
+
 
         public ParkingDispensationService(IVerintServiceGateway verintServiceGateway)
         {
@@ -17,7 +31,7 @@ namespace parking_dispensation_service.Services
         }
         public async Task<string> CreateCase(ParkingDispensationRequest parkingDispensationRequest)
         {
-            var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
+           var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
                                 Start date: {parkingDispensationRequest.DispensationDateStart.ToString("dd/MM/yyyy")}
                                 End date: {parkingDispensationRequest.DispensationDateEnd.ToString("dd/MM/yyyy")}
                                 Start time: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
@@ -74,7 +88,6 @@ namespace parking_dispensation_service.Services
                     };
                 }
             }
-
             try
             {
                 var response = await _VerintServiceGateway.CreateCase(crmCase);
@@ -84,6 +97,13 @@ namespace parking_dispensation_service.Services
                     throw new Exception("Status code not successful");
                 }
 
+                Person person = new Person
+                {
+                    FirstName = parkingDispensationRequest.FirstName,   
+                    Email = parkingDispensationRequest.Email,
+                };
+
+                _mailHelper.SendEmail(person, EMailTemplate.ParkingDispensationRequest, response.ResponseContent);
                 return response.ResponseContent;
             }
             catch (Exception ex)
