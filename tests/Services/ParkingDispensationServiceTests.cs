@@ -1,13 +1,13 @@
-﻿using Moq;
+﻿using System;
+using System.Threading.Tasks;
+using Moq;
 using parking_dispensation_service.Models;
 using parking_dispensation_service.Services;
 using parking_dispensation_service.Helpers;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Gateways.VerintServiceGateway;
 using StockportGovUK.NetStandard.Models.Verint;
-using System;
-using System.Threading.Tasks;
 using Xunit;
-using StockportGovUK.NetStandard.Gateways.Response;
 using Address = StockportGovUK.NetStandard.Models.Addresses.Address;
 
 namespace parking_dispensation_service_tests.Services
