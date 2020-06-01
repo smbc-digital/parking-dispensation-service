@@ -1,6 +1,7 @@
 ﻿using Moq;
 using parking_dispensation_service.Models;
 using parking_dispensation_service.Services;
+using parking_dispensation_service.Helpers;
 using StockportGovUK.NetStandard.Gateways.VerintServiceGateway;
 using StockportGovUK.NetStandard.Models.Verint;
 using System;
@@ -15,11 +16,12 @@ namespace parking_dispensation_service_tests.Services
     {
         private Mock<IVerintServiceGateway> _mockVerintServiceGateway = new Mock<IVerintServiceGateway>();
         private ParkingDispensationService _service;
+        private Mock<IMailHelper> _mockMailHelper = new Mock<IMailHelper>();
 
         public ParkingDispensationServiceTests()
         {
-            _service = new ParkingDispensationService(_mockVerintServiceGateway.Object);
-        }
+            _service = new ParkingDispensationService(_mockVerintServiceGateway.Object, _mockMailHelper.Object);
+        } 
 
         [Fact]
         public async Task CreateCase_ShouldReThrowCreateCaseException_CaughtFromVerintGateway()
