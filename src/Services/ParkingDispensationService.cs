@@ -31,9 +31,7 @@ namespace parking_dispensation_service.Services
         }
         public async Task<string> CreateCase(ParkingDispensationRequest parkingDispensationRequest)
         {
-          //  var crmCase = CreateCrmCaseObject(parkingDispensationRequest);
-
-            var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
+           var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
                                 Start date: {parkingDispensationRequest.DispensationDateStart.ToString("dd/MM/yyyy")}
                                 End date: {parkingDispensationRequest.DispensationDateEnd.ToString("dd/MM/yyyy")}
                                 Start time: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
@@ -113,7 +111,6 @@ namespace parking_dispensation_service.Services
                 throw new Exception($"CRMService CreateCase an exception has occured while creating the case in verint service", ex);
             }
         }
-
     }
 }
 
