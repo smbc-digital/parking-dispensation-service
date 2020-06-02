@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using parking_dispensation_service.Helpers;
 using parking_dispensation_service.Services;
 
 namespace parking_dispensation_service.Utils.ServiceCollectionExtensions
@@ -10,6 +11,7 @@ namespace parking_dispensation_service.Utils.ServiceCollectionExtensions
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddTransient<IParkingDispensationService, ParkingDispensationService>();
+            services.AddSingleton<IMailHelper, MailHelper>();
         }
         public static void AddSwagger(this IServiceCollection services)
         {
