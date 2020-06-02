@@ -7,7 +7,7 @@ using StockportGovUK.NetStandard.Models.Enums;
 
 namespace parking_dispensation_service.Helpers
 {
-    public class MailHelper
+    public class MailHelper : IMailHelper
     {
         private readonly IMailingServiceGateway _mailingServiceGateway;
 
@@ -23,6 +23,7 @@ namespace parking_dispensation_service.Helpers
                 Subject = "Parking dispensation request form - submission",
                 Reference = caseReference,
                 FirstName = person.FirstName,
+                LastName = person.LastName,
                 RecipientAddress = person.Email
             };
 
