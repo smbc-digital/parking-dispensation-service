@@ -24,14 +24,9 @@ namespace parking_dispensation_service.Services
             _mailHelper = mailHelper;
         }
 
-
-        public ParkingDispensationService(IVerintServiceGateway verintServiceGateway)
-        {
-            _VerintServiceGateway = verintServiceGateway;
-        }
         public async Task<string> CreateCase(ParkingDispensationRequest parkingDispensationRequest)
-        {
-           var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
+        { 
+            var description = $@"Reason: {parkingDispensationRequest.PurposeOfDispensation}
                                 Start date: {parkingDispensationRequest.DispensationDateStart.ToString("dd/MM/yyyy")}
                                 End date: {parkingDispensationRequest.DispensationDateEnd.ToString("dd/MM/yyyy")}
                                 Start time: {parkingDispensationRequest.DispensationTimeStart.ToString("HH:mm")}
@@ -39,6 +34,7 @@ namespace parking_dispensation_service.Services
                                 Vehicle information: {parkingDispensationRequest.VehicleDetails}
                                 Further location information: {parkingDispensationRequest.LocationDetails}
                                 ";
+
 
             var crmCase = new Case
             {
