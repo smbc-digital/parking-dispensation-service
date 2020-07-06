@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using parking_dispensation_service.Models;
 using parking_dispensation_service.Services;
 using StockportGovUK.AspNetCore.Attributes.TokenAuthentication;
@@ -24,6 +25,13 @@ namespace parking_dispensation_service.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ParkingDispensationRequest parkingDispensationRequest)
-            => Ok(await _parkingDispensationRequest.CreateCase(parkingDispensationRequest));
+        {
+            // log data thats recieved from fb   ---(investigating submission issues)
+            _logger.LogInformation(JsonConvert.SerializeObject(parkingDispensationRequest));
+
+            string result = await _parkingDispensationRequest.CreateCase(parkingDispensationRequest);
+
+            return Ok(result);
+        }
     }
 }
