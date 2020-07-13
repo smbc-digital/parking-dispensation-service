@@ -62,7 +62,7 @@ namespace parking_dispensation_service.Services
 
                 if (!string.IsNullOrEmpty(parkingDispensationRequest.Phone))
                 {
-                    crmCase.Customer.Mobile = parkingDispensationRequest.Phone;
+                    crmCase.Customer.Telephone = parkingDispensationRequest.Phone;
                 }
 
                 if (string.IsNullOrEmpty(parkingDispensationRequest.CustomersAddress?.PlaceRef))
