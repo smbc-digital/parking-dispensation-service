@@ -119,7 +119,7 @@ namespace parking_dispensation_service_tests.Services
             Assert.NotNull(crmCaseParameter);
             Assert.NotNull(crmCaseParameter.Customer);
             Assert.Equal(model.Email, crmCaseParameter.Customer.Email);
-            Assert.Equal(model.Phone, crmCaseParameter.Customer.Mobile);
+            Assert.Equal(model.Phone, crmCaseParameter.Customer.Telephone);
             Assert.Equal(model.LastName, crmCaseParameter.Customer.Surname);
             Assert.Equal(model.FirstName, crmCaseParameter.Customer.Forename);
         }
